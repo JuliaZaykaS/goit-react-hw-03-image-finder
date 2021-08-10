@@ -1,8 +1,9 @@
-
+import Searchbar from '../Searchbar/Searchbar';
 
 function App() {
   return (
     <>
+      <Searchbar onSubmit={ }/>
     </>
   );
 }
