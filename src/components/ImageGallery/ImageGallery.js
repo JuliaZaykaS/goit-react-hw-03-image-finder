@@ -80,13 +80,14 @@ export default class ImageGallery extends Component {
       return this.state.images.length === 0 ? (
         <div>Images not found</div>
       ) : (
-        <ul className={s.ImageGallery}>
+        <ul className={s.ImageGallery} onClickImg={this.props.onClickImg}>
           {this.state.images.map((item, index) => (
             <ImageGalleryItem
               key={item.id}
               // id={item.id}
               url={item.webformatURL}
               name={item.user}
+              // onClickImg={this.props.onClickImg}
             />
           ))}
         </ul>
