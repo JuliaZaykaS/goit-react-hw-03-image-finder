@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Searchbar from '../Searchbar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
+import Button from '../Button/Button';
 // import ImagesAPIService from '../services/images-api';
 
 
@@ -27,6 +28,8 @@ class App extends Component {
       <>
         <Searchbar onSubmit={this.getSearchValue} />
         <ImageGallery searchValue={ this.state.searchValue}/>
+        {/* <ImageGallery /> */}
+        <Button/>
       </>
       
     )

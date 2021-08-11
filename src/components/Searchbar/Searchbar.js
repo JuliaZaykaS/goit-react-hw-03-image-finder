@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import s from "./Searchbar.module.css";
 
 // export default function Searchbar({ onSubmit }) {
