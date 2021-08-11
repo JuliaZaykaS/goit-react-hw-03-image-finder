@@ -39,13 +39,13 @@ class App extends Component {
           searchValue={this.state.searchValue}
           onClickImg={this.toggleModal}
         />
-        {this.showModal && (
+        
+        <Button onClickBtn={this.toggleModal} />
+        {this.state.showModal && (
           <Modal onClose={this.toggleModal}>
             <ModalImage />
           </Modal>
         )}
-        {/* <ImageGallery /> */}
-        <Button onClickBtn={this.toggleModal} />
       </>
     );
   }

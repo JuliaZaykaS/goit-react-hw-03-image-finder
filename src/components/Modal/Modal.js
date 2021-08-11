@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import s from './Modal.module.css';
 
 const modal = document.querySelector('#modal-root');
-console.log(modal);
+// console.log(modal);
 export default class Modal extends Component {
 
   componentDidMount() {

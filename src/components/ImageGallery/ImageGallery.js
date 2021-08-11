@@ -29,6 +29,7 @@ export default class ImageGallery extends Component {
     images: null,
     error: null,
     status: Status.IDLE,
+    largeImg: {},
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -62,6 +63,28 @@ export default class ImageGallery extends Component {
     }
   }
 
+  addLargeImg = e => {
+    console.log(e.target);
+    console.log(this.state.images);
+    const largeImage = this.state.images.find(img => {
+    
+        // console.log(img);
+        if (img.webformatURL === e.target.src) return img;
+          // return {
+          //   largeUrl: img.largeImageURL,
+          //   name: img.user,
+          // };
+    
+    });
+    console.log(largeImage);
+    // const largeImage = {
+    //   largeUrl: img.largeImageURL,
+    //   name: img.user,
+    // }
+    this.setState({ largeImg: largeImage });
+    this.props.onClickImg();
+  };
+
   render() {
     const { status } = this.state;
     if (status === 'idle') {
@@ -80,7 +103,8 @@ export default class ImageGallery extends Component {
       return this.state.images.length === 0 ? (
         <div>Images not found</div>
       ) : (
-        <ul className={s.ImageGallery} onClickImg={this.props.onClickImg}>
+        // <ul className={s.ImageGallery} onClickImg={this.props.onClickImg}>
+        <ul className={s.ImageGallery}>
           {this.state.images.map((item, index) => (
             <ImageGalleryItem
               key={item.id}
@@ -88,6 +112,7 @@ export default class ImageGallery extends Component {
               url={item.webformatURL}
               name={item.user}
               // onClickImg={this.props.onClickImg}
+              onClickImg={this.addLargeImg}
             />
           ))}
         </ul>
