@@ -39,6 +39,7 @@ export default class ImageGallery extends Component {
     const prevImages = prevState.images;
     const nextImages = prevState.images;
 
+    // if (prevName !== nextName || prevImages!==nextImages) {
     if (prevName !== nextName) {
       this.setState({ status: Status.PENDING });
       // this.setState({ images: nextName, status: Status.PENDING });
@@ -66,51 +67,49 @@ export default class ImageGallery extends Component {
       //   .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
 
-    //  if (prevImages !== nextImages) {
-    //   this.setState({ status: Status.PENDING });
-    //   // this.setState({ images: nextName, status: Status.PENDING });
-    //   // apiImg
-    //   //   .fetchImages(nextName)
-    //   //   .then(images => {
-    //   //     console.log(images);
-    //   //     this.setState({ images: images.hits, status: Status.RESOLVED });
-    //   //   })
-    //   //   .catch(error => this.setState({ error, status: Status.REJECTED }));
-
-    //   imagesAPIService.incrementPage();
-    //   // imagesAPIService.resetPage();
-    //   // imagesAPIService.query = prevName;
-    //   imagesAPIService
-    //     .fetchImages()
-    //     .then(images => {
-    //       this.setState(prevState => {
-    //         console.log(images);
-    //         images = prevState.images.push(images)
-    //       })
-    //       // this.setState({ images: this.state.images.push(images.hits), status: Status.RESOLVED });
-    //     })
-    //     .catch(error => this.setState({ error, status: Status.REJECTED }));
-
-      // pokemonAPI
-      //   .fetchPokemon(nextName)
-      //   .then(pokemon => this.setState({ pokemon, status: Status.RESOLVED }))
+    if (prevImages !== nextImages) {
+        // this.setState({ status: Status.PENDING });
+      // this.setState({ images: nextName, status: Status.PENDING });
+      // apiImg
+      //   .fetchImages(nextName)
+      //   .then(images => {
+      //     console.log(images);
+      //     this.setState({ images: images.hits, status: Status.RESOLVED });
+      //   })
       //   .catch(error => this.setState({ error, status: Status.REJECTED }));
+
+      // imagesAPIService.incrementPage();
+     
+      // imagesAPIService
+      //   .fetchImages()
+      //   .then(images => {
+      //     this.setState(prevState => {
+      //       console.log(images);
+      //       images = prevState.images.push(images)
+      //     })
+      //     // this.setState({ images: this.state.images.push(images.hits), status: Status.RESOLVED });
+      //   })
+      //   .catch(error => this.setState({ error, status: Status.REJECTED }));
+
+     
     }
-  
+  }
 
   loadMoreImages = () => {
-    console.log(123);
+    // console.log(123);
     this.setState({ status: Status.PENDING });
      
       imagesAPIService.incrementPage();
       
       imagesAPIService
         .fetchImages()
-        .then(images => {
-          this.setState(prevState => {
-            console.log(images);
-            images = prevState.images.push(...images.hits)
-          })
+        .then(result => {
+          this.setState(({ images, status }) => ({
+            // console.log(result)
+            images: [...images, ...result.hits],
+            status: Status.RESOLVED
+            // images = prevState.images.push(...images.hits)
+          }))
           // this.setState({ images: images.hits, status: Status.RESOLVED });
         })
         .catch(error => this.setState({ error, status: Status.REJECTED }));
