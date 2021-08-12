@@ -66,24 +66,41 @@ export default class ImageGallery extends Component {
   addLargeImg = e => {
     console.log(e.target);
     console.log(this.state.images);
-    const largeImage = this.state.images.find(img => {
+    const largeImage = this.state.images.find(img => 
+      img.webformatURL === e.target.src
+      // (img.webformatURL === e.target.src) ? img : null;
+    )
+    // const largeImage = this.state.images.filter(img => 
+    //   img.webformatURL === e.target.src
+    //   // (img.webformatURL === e.target.src) ? img : null;
+    // )
+    // const largeImage = this.state.images.find(img => {
+    //   // console.log(img);
+    //   if (img.webformatURL === e.target.src) {
     
-        // console.log(img);
-        if (img.webformatURL === e.target.src) return img;
-          // return {
-          //   largeUrl: img.largeImageURL,
-          //   name: img.user,
-          // };
-    
-    });
+    //   } else return ;
+      // (img.webformatURL === e.target.src) ? return img : return;
+      // return {
+      //   largeUrl: img.largeImageURL,
+      //   name: img.user,
+      // };
+    // });
+    // const findImage = this.state.images.find((img) => {
+    //   if (img.webformatURL === e.target.src) { return img };
+    // })
     console.log(largeImage);
     // const largeImage = {
     //   largeUrl: img.largeImageURL,
     //   name: img.user,
     // }
-    this.setState({ largeImg: largeImage });
+    this.setState({ largeImg: { url: largeImage.largeImageURL, name: largeImage.user } });
     this.props.onClickImg();
+    // this.props.openLargeImg();
   };
+
+  openLargeImg = (e) => {
+    this.props.onClick(this.state.largeImg);
+  }
 
   render() {
     const { status } = this.state;
@@ -112,7 +129,12 @@ export default class ImageGallery extends Component {
               url={item.webformatURL}
               name={item.user}
               // onClickImg={this.props.onClickImg}
+              // onClickImg={() => {
+              //   this.addLargeImg();
+              //   this.openLargeImg()
+              // }}
               onClickImg={this.addLargeImg}
+              // openLargeImg={this.openLargeImg}
             />
           ))}
         </ul>
