@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Searchbar from '../Searchbar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
-import Button from '../Button/Button';
+// import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import ModalImage from '../ImageGalleryItem/ImageGalleryModal';
 // import ImagesAPIService from '../services/images-api';
@@ -17,22 +17,37 @@ import ModalImage from '../ImageGalleryItem/ImageGalleryModal';
 class App extends Component {
   state = {
     searchValue: '',
-    largeImg: { },
+    largeImg: {},
     showModal: false,
+    // renderGallery: false,
   };
 
   getSearchValue = searchValue => {
     this.setState({ searchValue });
   };
 
-  getModalImage = (largeImg) => {
-    this.setState({largeImg})
+  getModalImage = largeImg => {
+    this.setState({ largeImg });
   };
 
   clearModalData = () => {
-    this.setState({largeImg: {}})
-  }
-  
+    this.setState({ largeImg: {} });
+  };
+
+  // clickLoadMoreBtn = e => {
+  //   this.setState(({ renderGallery }) => ({
+  //     renderGallery: true,
+  //   }));
+    // this.setState({renderGallery: true});
+    // clickLoadMoreBtn = () => {
+    //   this.setState(({ emptyGallery }) => ({
+    //     emptyGallery: !emptyGallery,
+    //   }));
+    // imagesAPIService.query = this.state.searchValue;
+    // imagesAPIService
+    //         .fetchImages()
+  // };
+
   // renderModal = () => {
   //   this.toggleModal();
   //   this.getModalImage(this.state.largeImg);
@@ -44,7 +59,7 @@ class App extends Component {
   // }
   // getLargeImage = () => {
   //   console.log('hello');
-    
+
   // }
 
   toggleModal = e => {
@@ -65,23 +80,27 @@ class App extends Component {
           //   this.getLargeImage()
           // }}
           // onClickImage={() => {
-          
+
           //   this.toggleModal();
           //   this.getModalImage();
-          
+
           // }}
           // onClickImage={this.renderModal(this.state.largeImg)}
-          
+
           onClickImg={this.toggleModal}
           getModalImage={this.getModalImage}
           // openLargeImg={this.getLargeImage}
         />
-        
-        <Button onClickBtn={this.toggleModal} />
+        {/* {this.state.emptyGallery && (<Button onClickBtn={this.clickLoadMoreBtn} />) } */}
+        {/* <Button onClickBtn={this.clickLoadMoreBtn} /> */}
+
         {this.state.showModal && (
           <Modal onClose={this.toggleModal} clearModal={this.clearModalData}>
             {/* <ModalImage url={this.state.largeImg.url} name={this.state.largeImg.name }/> */}
-            <ModalImage url={this.state.largeImg.largeImageURL} name={this.state.largeImg.user }/>
+            <ModalImage
+              url={this.state.largeImg.largeImageURL}
+              name={this.state.largeImg.user}
+            />
           </Modal>
         )}
       </>
