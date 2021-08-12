@@ -18,12 +18,14 @@ export default class Modal extends Component {
   onEscClick = (e) => {
     if (e.code === 'Escape') {
       this.props.onClose();
+      this.props.clearModal();
     }
   }
 
   onBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       this.props.onClose();
+      this.props.clearModal();
     }
   }
 

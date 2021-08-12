@@ -29,7 +29,7 @@ export default class ImageGallery extends Component {
     images: null,
     error: null,
     status: Status.IDLE,
-    largeImg: {},
+    // largeImg: {},
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -64,8 +64,8 @@ export default class ImageGallery extends Component {
   }
 
   addLargeImg = e => {
-    console.log(e.target);
-    console.log(this.state.images);
+    // console.log(e.target);
+    // console.log(this.state.images);
     const largeImage = this.state.images.find(img => 
       img.webformatURL === e.target.src
       // (img.webformatURL === e.target.src) ? img : null;
@@ -93,14 +93,17 @@ export default class ImageGallery extends Component {
     //   largeUrl: img.largeImageURL,
     //   name: img.user,
     // }
-    this.setState({ largeImg: { url: largeImage.largeImageURL, name: largeImage.user } });
+    // this.setState({ largeImg: { url: largeImage.largeImageURL, name: largeImage.user } });
+    // this.props.onClickImage(largeImage)
     this.props.onClickImg();
+    // console.log(this.state.largeImg);
+    this.props.getModalImage(largeImage);
     // this.props.openLargeImg();
   };
 
-  openLargeImg = (e) => {
-    this.props.onClick(this.state.largeImg);
-  }
+  // openLargeImg = (e) => {
+  //   this.props.onClick(this.state.largeImg);
+  // }
 
   render() {
     const { status } = this.state;

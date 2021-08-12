@@ -17,16 +17,27 @@ import ModalImage from '../ImageGalleryItem/ImageGalleryModal';
 class App extends Component {
   state = {
     searchValue: '',
-    largeImg: {
-      url: "https://pixabay.com/get/gf91c2656bb7f3b01c0b8999a261b8d422d7fbb8b06485dee2ace7524384a64c170adcfe81e628057c28e937a432879e0a7078a69f2dc1a4fcbf980f2880afb26_1280.jpg",
-      name: 'test',
-    },
+    largeImg: { },
     showModal: false,
   };
 
   getSearchValue = searchValue => {
     this.setState({ searchValue });
   };
+
+  getModalImage = (largeImg) => {
+    this.setState({largeImg})
+  };
+
+  clearModalData = () => {
+    this.setState({largeImg: {}})
+  }
+  
+  // renderModal = () => {
+  //   this.toggleModal();
+  //   this.getModalImage(this.state.largeImg);
+
+  // }
 
   // getLargeImage = largeImg => {
   //   this.setState({largeImg})
@@ -53,14 +64,24 @@ class App extends Component {
           //   this.toggleModal();
           //   this.getLargeImage()
           // }}
+          // onClickImage={() => {
+          
+          //   this.toggleModal();
+          //   this.getModalImage();
+          
+          // }}
+          // onClickImage={this.renderModal(this.state.largeImg)}
+          
           onClickImg={this.toggleModal}
+          getModalImage={this.getModalImage}
           // openLargeImg={this.getLargeImage}
         />
         
         <Button onClickBtn={this.toggleModal} />
         {this.state.showModal && (
-          <Modal onClose={this.toggleModal}>
-            <ModalImage url={this.state.largeImg.url} name={this.state.largeImg.name }/>
+          <Modal onClose={this.toggleModal} clearModal={this.clearModalData}>
+            {/* <ModalImage url={this.state.largeImg.url} name={this.state.largeImg.name }/> */}
+            <ModalImage url={this.state.largeImg.largeImageURL} name={this.state.largeImg.user }/>
           </Modal>
         )}
       </>
