@@ -25,30 +25,11 @@ export default class ImageGallery extends Component {
     const prevName = prevProps.searchValue;
     const nextName = this.props.searchValue;
 
-
     if (prevName !== nextName) {
-      // this.setState({ status: Status.PENDING, images:[] });
-      this.setState({images:[] });
-
-
+      this.setState({ images: [] });
       imagesAPIService.query = nextName;
       imagesAPIService.resetPage();
       this.loadImages();
-
-      // imagesAPIService
-      //   .fetchImages()
-      //   .then(images => {
-      //     images.hits.length !== 0
-      //       ? this.setState({ images: images.hits, status: Status.RESOLVED })
-      //       : this.setState({ status: Status.RESOLVED });
-      //   })
-      //   .catch(error => this.setState({ error, status: Status.REJECTED }))
-      //   .finally(() => {
-      //     window.scrollTo({
-      //       top: document.documentElement.scrollHeight,
-      //       behavior: 'smooth',
-      //     });
-      //   });
     }
   }
 
@@ -58,16 +39,13 @@ export default class ImageGallery extends Component {
     imagesAPIService
       .fetchImages()
       .then(images => {
-          images.hits.length !== 0
-            ? this.setState({ images: [...this.state.images, ...images.hits ], status: Status.RESOLVED })
-            : this.setState({ status: Status.RESOLVED });
-        })
-      // .then(result => {
-      //   this.setState(({ images, status }) => ({
-      //     images: [...images, ...result.hits],
-      //     status: Status.RESOLVED,
-      //   }));
-      // })
+        images.hits.length !== 0
+          ? this.setState({
+              images: [...this.state.images, ...images.hits],
+              status: Status.RESOLVED,
+            })
+          : this.setState({ status: Status.RESOLVED });
+      })
       .catch(error => this.setState({ error, status: Status.REJECTED }))
       .finally(() => {
         window.scrollTo({
@@ -75,29 +53,11 @@ export default class ImageGallery extends Component {
           behavior: 'smooth',
         });
       });
-  };
+  }
 
   loadMoreImages = () => {
     imagesAPIService.incrementPage();
     this.loadImages();
-
-    // this.setState({ status: Status.PENDING });
-
-    // imagesAPIService
-    //   .fetchImages()
-    //   .then(result => {
-    //     this.setState(({ images, status }) => ({
-    //       images: [...images, ...result.hits],
-    //       status: Status.RESOLVED,
-    //     }));
-    //   })
-    //   .catch(error => this.setState({ error, status: Status.REJECTED }))
-    //   .finally(() => {
-    //     window.scrollTo({
-    //       top: document.documentElement.scrollHeight,
-    //       behavior: 'smooth',
-    //     });
-    //   });
   };
 
   addLargeImg = e => {
@@ -106,7 +66,6 @@ export default class ImageGallery extends Component {
     );
 
     this.props.onClickImg();
-
     this.props.getModalImage(largeImage);
   };
 
