@@ -59,9 +59,12 @@ export default class ImageGallery extends Component {
       imagesAPIService
         .fetchImages()
         .then(images => {
-          if (images.hits.length !== 0) {
-            this.setState({ images: images.hits, status: Status.RESOLVED });
-          }
+          images.hits.length !== 0
+            ? this.setState({ images: images.hits, status: Status.RESOLVED })
+            : this.setState({ status: Status.RESOLVED });
+          // if (images.hits.length !== 0) {
+          //   this.setState({ images: images.hits, status: Status.RESOLVED });
+          // } else this.setState({ status: Status.RESOLVED });
         })
         .catch(error => this.setState({ error, status: Status.REJECTED }))
         .finally(() => {
@@ -147,7 +150,7 @@ export default class ImageGallery extends Component {
     // this.setState({ status: Status.IDLE});
 
     this.setState({ status: Status.PENDING });
-    imagesAPIService.incrementPage();
+    // imagesAPIService.incrementPage();
 
     imagesAPIService
       .fetchImages()
@@ -306,7 +309,7 @@ export default class ImageGallery extends Component {
     // }
 
     // if (status === 'resolved' && this.state.images.length === 0) {
-    if (status === 'resolved'  && this.state.images.length === 0) {
+    if (status === 'resolved' && this.state.images.length === 0) {
       return <div>Images not found</div>;
     }
 
@@ -359,7 +362,9 @@ export default class ImageGallery extends Component {
         </ul>
         {/* <Button onClickBtn={ }/> */}
         {this.state.status === Status.PENDING && <Loader />}
-        {this.state.images.length !== 0 && <Button onClickBtn={this.loadMoreImages} />}
+        {this.state.images.length !== 0 && (
+          <Button onClickBtn={this.loadMoreImages} />
+        )}
       </>
     );
     // }
