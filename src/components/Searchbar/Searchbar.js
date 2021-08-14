@@ -28,9 +28,9 @@ export default class Searchbar extends Component{
   };
 
   addInputSearch = (e) => {
-    this.setState({ inputValue: e.currentTarget.value})
+    this.setState({ inputValue: e.currentTarget.value.trim()})
   }
-  
+
   onSubmitInput = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state.inputValue);
@@ -51,7 +51,7 @@ export default class Searchbar extends Component{
           placeholder="Search images and photos"
           value={this.state.inputValue}
           onChange={this.addInputSearch}
-          
+
         />
       </form>
     </header>
