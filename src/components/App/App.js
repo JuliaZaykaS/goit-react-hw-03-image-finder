@@ -52,7 +52,6 @@ class App extends Component {
   };
 
   loadMoreImages = () => {
-    // imagesAPIService.query = this.state.searchValue;
     imagesAPIService.incrementPage();
     this.loadImages(this.state.searchValue);
   };
@@ -61,15 +60,9 @@ class App extends Component {
     const largeImage = this.state.images.find(
       img => img.webformatURL === e.target.src,
     );
-    this.setState({largeImg: largeImage})
-    // this.toggleModal();
-    // this.getModalImage(largeImage);
-
-    // this.props.onClickImg();
-    // this.props.getModalImage(largeImage);
+    this.setState({ largeImg: largeImage });
   };
 
-  // loadImages=() =>{
   loadImages = value => {
     this.setState({ status: Status.PENDING });
     imagesAPIService.query = value;
@@ -94,27 +87,23 @@ class App extends Component {
   };
 
   render() {
-    const { largeImg, searchValue, showModal } = this.state;
+    const { largeImg, searchValue, showModal, images, status } = this.state;
     return (
       <div className={s.App}>
         <Searchbar onSubmit={this.getSearchValue} />
         <ImageGallery
           searchValue={searchValue}
-
-          // onClickImg={this.addLargeImg}
           onClickImg={this.toggleModal}
-          // getModalImage={this.getModalImage}
           getModalImage={this.addLargeImg}
-          images={this.state.images}
-          status={this.state.status}
+          images={images}
+          status={status}
           loadImages={this.loadImages}
           resetPages={this.resetPages}
           updateImages={this.updateImages}
         />
-        {this.state.status === Status.PENDING && <Loader />}
-        {this.state.images.length !== 0 && (
-          // <Button onClickBtn={this.loadMoreImages(this.state.searchValue)} />
-          <Button onClickBtn={()=>this.loadMoreImages(this.state.searchValue)} />
+        {status === Status.PENDING && <Loader />}
+        {images.length !== 0 && (
+          <Button onClickBtn={() => this.loadMoreImages(searchValue)} />
         )}
 
         {showModal && (
