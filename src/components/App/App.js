@@ -25,21 +25,44 @@ class App extends Component {
     status: Status.IDLE,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+  // componentDidUpdate(prevState) {
+    const prevName = prevState.searchValue;
+    const nextName = this.state.searchValue;
+
+    if (prevName !== nextName) {
+      this.setState({images:[]})
+      // this.props.resetPages();
+      imagesAPIService.resetPage();
+
+      // this.props.updateImages([]);
+
+      // this.props.loadImages(nextName);
+      this.loadImages(nextName);
+    }
+  }
+
+
+
+  // getNewValue = (value) => {
+  //   this.setState({[value]: value})
+  // }
+
   getSearchValue = searchValue => {
     this.setState({ searchValue });
   };
 
-  getModalImage = largeImg => {
-    this.setState({ largeImg });
-  };
+  // getModalImage = largeImg => {
+  //   this.setState({ largeImg });
+  // };
 
-  updateImages = value => {
-    this.setState({ images: value });
-  };
+  // updateImages = value => {
+  //   this.setState({ images: value });
+  // };
 
-  resetPages = () => {
-    imagesAPIService.resetPage();
-  };
+  // resetPages = () => {
+  //   imagesAPIService.resetPage();
+  // };
 
   clearModalData = () => {
     this.setState({ largeImg: {} });
@@ -56,11 +79,15 @@ class App extends Component {
     this.loadImages(this.state.searchValue);
   };
 
-  addLargeImg = e => {
+  // addLargeImg = e => {
+  openModalImg = e => {
+
     const largeImage = this.state.images.find(
       img => img.webformatURL === e.target.src,
     );
+    // console.log(largeImage);
     this.setState({ largeImg: largeImage });
+    this.toggleModal();
   };
 
   loadImages = value => {
@@ -91,15 +118,21 @@ class App extends Component {
     return (
       <div className={s.App}>
         <Searchbar onSubmit={this.getSearchValue} />
+        {/* <Searchbar onSubmit={this.getNewValue} /> */}
+        {status === Status.IDLE && null}
+        {status === Status.REJECTED && <div>{this.error.message}</div>}
+        {status === Status.RESOLVED && images.length === 0 && <div className={s.notFound}>Images not found</div>}
         <ImageGallery
-          searchValue={searchValue}
-          onClickImg={this.toggleModal}
-          getModalImage={this.addLargeImg}
+          // searchValue={searchValue}
+          // onClickImg={this.toggleModal}
+          // onImgClick={this.toggleModal}
+          onImgClick={this.openModalImg}
+          // getModalImage={this.addLargeImg}
           images={images}
-          status={status}
-          loadImages={this.loadImages}
-          resetPages={this.resetPages}
-          updateImages={this.updateImages}
+          // status={status}
+          // loadImages={this.loadImages}
+          // resetPages={this.resetPages}
+          // updateImages={this.updateImages}
         />
         {status === Status.PENDING && <Loader />}
         {images.length !== 0 && (
